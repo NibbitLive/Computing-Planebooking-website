@@ -164,7 +164,7 @@ class Signup(CTkFrame):
             errorsLst.append('Please input a valid email')
             self.emailEnt.configure(border_color="red")
         if self.passwordEnt.get() == '':
-            errorsLst.append('Please input password')
+            errorsLst.append('Please input a password')
             self.passwordEnt.configure(border_color="red")
         if self.passwordConfirmEnt.get() != self.passwordEnt.get() or self.passwordConfirmEnt.get() == '':
             errorsLst.append('Passwords do not match')
@@ -280,7 +280,7 @@ class Loginpage(CTkFrame):#To input the user's unique information to access thei
             errorsLst.append('Please input a valid email')
             self.emailEnt.configure(border_color = "red")
         if self.passwordEnt.get() == '':
-            errorsLst.append('Please input password')
+            errorsLst.append('Please input a password')
             self.passwordEnt.configure(border_color = "red")
 
         error_message = "\n".join(errorsLst)
