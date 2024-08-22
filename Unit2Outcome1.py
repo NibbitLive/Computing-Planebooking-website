@@ -20,6 +20,7 @@ class MainApp(CTk):
         self.frame = Signup(self)  # Set the first frame to appear here
         self.frame.pack(fill="both", expand=True)
     
+    ''' Dihein '''
     #Input: frame(the current frame)
     #process: Deletes the current frame and replaces it with a new one
     #Output: The new frame that was picked
@@ -28,9 +29,10 @@ class MainApp(CTk):
         self.frame = frame_class(self)
         self.frame.pack(fill="both", expand=True)  # Display the new frame
 
+    ''' Dihein '''
     #Input: On mouse click/when the user tries to close the window.
     #Process: displays a messagebox if they wanna close the window and if ok is pressed it closes the window otherwise.
-    #Output: self.destroy(), it destroys the window when ok is clicked.
+    #Output: self.destroy(), it destroys the window when ok is clicked
     def on_closing(self):
         """Handle the close window event"""
         if messagebox.askokcancel("Quit", "Are you sure you want to close this window?"):
@@ -92,6 +94,7 @@ class Signup(CTkFrame):
         self.passwordEnt.bind("<Return>", self.booking)
         self.passwordConfirmEnt.bind("<Return>", self.booking)
 
+    ''' Blaine '''
     #Input: nameEnt, emailEnt, passwordEnt, passwordConfirmEnt
     #process: deletes anything within the entry fields and activates the placeholder text
     #Output: the entry boxes get cleared and placeholder text is outputted
@@ -106,6 +109,7 @@ class Signup(CTkFrame):
         self.passwordConfirmEnt._activate_placeholder()
         self.master.focus()
 
+    ''' Blaine '''
     #Input: passwordEnt, passwordConfirmEnt
     #process: allows the user to see their password and confirmpassword text
     #Output: the revealed text in the entry boxes
@@ -115,6 +119,7 @@ class Signup(CTkFrame):
         self.showBtn.configure(command=self.hide)
         self.showBtn.configure(image = self.image_2)
 
+    ''' Blaine '''
     #Input: passwordEnt, passwordConfirmEnt
     #Process: allows the user to hide their password and confirmpassword text
     #Output: hides the text within the entry field
@@ -124,12 +129,14 @@ class Signup(CTkFrame):
         self.showBtn.configure(command=self.show)
         self.showBtn.configure(image = self.image_1)
 
+    ''' Blaine '''
     #Input: Loginpage
     #Process: changes the frame from signup page to login page
     #Output: the current frame becomes LoginPage frame
     def login(self, event=None):
         self.master.change(Loginpage)
 
+    ''' Blaine '''
     #Input: clickName, clickEmail, clickpassword, clickconfirmpassword
     #Process: It sets the border colors back to default if any validaiton errors occurred
     #Output: The clickName, clickEmail, clickpassword, clickconfirmpassword all have there border colors changed
@@ -142,16 +149,18 @@ class Signup(CTkFrame):
     def clickconfirmpassword(self, key):
         self.passwordConfirmEnt.configure(border_color='')
 
+    ''' Blaine and Dihein'''
     #Input: nameEnt, emailEnt, passwordEnt, passwordConfirmEnt
     #Process: Has validation for the entries (if there are anything wrong it displays a messagebox with the errors) and then saves the signup details to a 
     # BookingWebsiteDetails.csv (plus it also checks whether the details are already registered) and changes them to the BookingPage frame.
     #Output: the errors in a list(inside a messagebox) then writes to a csv and changes the frame (to BookingPage frame)
     def booking(self, event=None):
         errorsLst = []
+        email = self.emailEnt.get().lower()
         if not self.nameEnt.get().isalpha() or self.nameEnt.get() == '':
             errorsLst.append('Please Input a Name with alphabetic characters only')
             self.nameEnt.configure(border_color="red")
-        if '@' not in self.emailEnt.get() or '.com' not in self.emailEnt.get() or self.emailEnt.get() == '':
+        if '@' not in email or '.com' not in email or email == '':
             errorsLst.append('Please input a valid email')
             self.emailEnt.configure(border_color="red")
         if self.passwordEnt.get() == '':
@@ -167,13 +176,13 @@ class Signup(CTkFrame):
 
         error_message = "\n".join(errorsLst)
 
-        if self.emailEnt.get() not in my_dict:
+        if email not in my_dict:
             if error_message:
                 messagebox.showerror("Error", error_message)
             else:
                 with open("BookingWebsiteDetails.csv", mode="a", newline="") as csv_file:
                     csv_writer = csv.writer(csv_file)
-                    csv_writer.writerow([self.emailEnt.get(), self.passwordEnt.get()])
+                    csv_writer.writerow([email, self.passwordEnt.get()])
                 self.master.change(Bookingpage)
         else:
             messagebox.showerror("Error", "Account already exists")
@@ -223,6 +232,7 @@ class Loginpage(CTkFrame):#To input the user's unique information to access thei
         self.emailEnt.bind("<Return>", self.booking)
         self.passwordEnt.bind("<Return>", self.booking)
 
+    ''' Harsha '''
     #Input: emailEnt, passwordEnt
     #process: deletes anything within the entry fields and activates the placeholder text
     #Output: the entry boxes get cleared and placeholder text is outputted
@@ -233,6 +243,7 @@ class Loginpage(CTkFrame):#To input the user's unique information to access thei
         self.passwordEnt._activate_placeholder()
         self.master.focus()
 
+    ''' Harsha '''
     #Input: passwordEnt
     #process: allows the user to see their password text
     #Output: the revealed text in the entry boxes
@@ -240,6 +251,7 @@ class Loginpage(CTkFrame):#To input the user's unique information to access thei
         self.passwordEnt.configure(show='')
         self.showBtn.configure(image = self.image_1, command=self.hide)
 
+    ''' Harsha '''
     #Input: passwordEnt
     #Process: allows the user to hide their password text
     #Output: hides the text within the entry field
@@ -247,6 +259,7 @@ class Loginpage(CTkFrame):#To input the user's unique information to access thei
         self.passwordEnt.configure(show='*')
         self.showBtn.configure(image = self.image_2, command=self.show)
 
+    ''' Harsha '''
     #Input: clickEmail, clickpassword
     #Process: It sets the border colors back to default if any validaiton errors occurred
     #Output: The clickEmail, clickpassword all have there border colors changed
@@ -255,13 +268,15 @@ class Loginpage(CTkFrame):#To input the user's unique information to access thei
     def clickpassword(self, key):
         self.passwordEnt.configure(border_color='')
 
+    ''' Harsha and Dihein'''
     #Input: emailEnt, passwordEnt
     #Process: Has validation for the entries (if there are anything wrong it displays a messagebox with the errors) and then reads
     # from the BookingWebsiteDetail.csv and changes the current frame to the BookingPage frame.
     #Output: the errors in a list(inside a messagebox) then reads from a csv and changes the frame (to BookingPage)
     def booking(self, event=None):
         errorsLst = []
-        if '@' not in self.emailEnt.get() or '.com' not in self.emailEnt.get() or self.emailEnt.get() == '':
+        email = self.emailEnt.get().lower()
+        if '@' not in email or '.com' not in email or email == '':
             errorsLst.append('Please input a valid email')
             self.emailEnt.configure(border_color = "red")
         if self.passwordEnt.get() == '':
@@ -277,15 +292,16 @@ class Loginpage(CTkFrame):#To input the user's unique information to access thei
                 reader = csv.reader(f, delimiter=',')
                 my_dict = {k: v for k, v in reader}
 
-            if self.emailEnt.get() not in my_dict:
+            if email not in my_dict:
                 messagebox.showerror("Error", "No account with this email")
                 self.emailEnt.configure(border_color = "red")
-            elif my_dict[self.emailEnt.get()] == self.passwordEnt.get():
+            elif my_dict[email] == self.passwordEnt.get():
                 self.master.change(Bookingpage)
             else:
                 messagebox.showerror("Error", "Incorrect password")
                 self.passwordEnt.configure(border_color = "red")
     
+    ''' Harsha '''
     #Input: frame(the current frame)
     #Process: It changes the frame from LoginPage to Signup
     #Output: current frame changes to SignupPage
@@ -374,18 +390,20 @@ class Bookingpage(CTkFrame):#the booking page to select what flight options the 
         self.tv.tag_configure('highlight', background='lightblue')
         self.tv.bind("<Motion>", self.highlight_row)
 
+    ''' Dihein '''
     #Input: self.tv
     #Process: It highlights the row you are currently hovering within the treeview
-    #Output: Outputs the self.tv.tk.call which allows it to highlight the row currently hovered
+    #Output: Outputs the self.tv.tk.call which allows it to highlight the row currently hovered (data type is string)
     def highlight_row(self, event):
         self.tv = event.widget
         item = self.tv.identify_row(event.y)
         self.tv.tk.call(self.tv, "tag", "remove", "highlight")
         self.tv.tk.call(self.tv, "tag", "add", "highlight", item)
 
+    ''' Dihein '''
     #Input: loads the csv file SearchCheck.csv
     #Process: It loads all the data into the treeview when u first load the frame
-    #Output: It outputs the data from the csv into the treeview
+    #Output: It outputs the data from the csv into the treeview(data type is a string)
     def load_initial_data(self):
         file = r'C:\Users\thush\OneDrive\Desktop\Python\SearchCheck.csv'
 
@@ -396,10 +414,11 @@ class Bookingpage(CTkFrame):#the booking page to select what flight options the 
         for (i, n, f, g) in csvreader_list:
             self.tv.insert('', 'end', values=(i, n, f, g))
 
+    ''' Dihein '''
     #Input: planeEnt, fromEnt, toEnt
     #Process: Has validation for the entries (if there are anything wrong it displays a messagebox with the errors) and then searchs through the SearchCheck.csv to
     # find anything that matches the inputs (if nothing matches a error is displayed) and if it does match up the corresponding searches are displayed in the treeview.
-    #Output: the errors in a list(inside a messagebox) and displays the corresponding results for the search and then deletes the contents of the entry fields
+    #Output: the errors in a list(inside a messagebox) and displays the corresponding results for the search and then deletes the contents of the entry fields(data type outputted is a list of strings)
     def search(self, event=None):
         errorsLst = []
         if self.planeEnt.get().isnumeric():
@@ -461,9 +480,10 @@ class Bookingpage(CTkFrame):#the booking page to select what flight options the 
             self.fromEnt.delete(0, 'end')
             self.v.set("Select a budget")
 
+    ''' Dihein '''
     #Input: budgetStr
     #Process: gets the users choice in the budgetDrp and splits it up into two parts which are then put into budgetMin and budgetMax
-    #Output: budgetMin and budgetMax are outputted as integers 
+    #Output: budgetMin and budgetMax are outputted as integers(data type is a string)
     def get_budget_range(self, budgetStr):
         if budgetStr == "Select a budget":
             return (0, float('inf'))
@@ -472,16 +492,18 @@ class Bookingpage(CTkFrame):#the booking page to select what flight options the 
         budgetMax = int(budget_range[1].replace('$', ''))
         return (budgetMin, budgetMax)
 
+    ''' Dihein '''
     #Input: frame(the current frame)
     #Process: It changes the frame from BookingPage to LoginPage
     #Output: current frame changes to LoginPage
     def back(self):
         self.master.change(Loginpage)
 
+    ''' Dihein '''
     #Input: self.tv
     #Process: It takes what the user selected/clicked in the treeview and displays the airline, to, from and price in a detailWindow which also containts a Book button
     # when pressed displays a messagebox confirming their flight details.
-    #Output: msgBox(which is there flight details)
+    #Output: msgBox(which is there flight details)(data type is also a string as it outputs a messagebox)
     def on_treeview_select(self, event):
         selection = self.tv.selection()
         if selection:
