@@ -153,7 +153,7 @@ class Signup(CTkFrame):
     #Input: nameEnt, emailEnt, passwordEnt, passwordConfirmEnt
     #Process: Has validation for the entries (if there are anything wrong it displays a messagebox with the errors) and then saves the signup details to a 
     # BookingWebsiteDetails.csv (plus it also checks whether the details are already registered) and changes them to the BookingPage frame.
-    #Output: the errors in a list(inside a messagebox) then writes to a csv and changes the frame (to BookingPage frame)
+    #Output: the errors in a list(inside a messagebox) then writes to a csv and changes the frame (to BookingPage frame)(data type is a string with integers)
     def booking(self, event=None):
         errorsLst = []
         email = self.emailEnt.get().lower()
@@ -272,7 +272,7 @@ class Loginpage(CTkFrame):#To input the user's unique information to access thei
     #Input: emailEnt, passwordEnt
     #Process: Has validation for the entries (if there are anything wrong it displays a messagebox with the errors) and then reads
     # from the BookingWebsiteDetail.csv and changes the current frame to the BookingPage frame.
-    #Output: the errors in a list(inside a messagebox) then reads from a csv and changes the frame (to BookingPage)
+    #Output: the errors in a list(inside a messagebox) then reads from a csv and changes the frame (to BookingPage)(data type is a string with integers)
     def booking(self, event=None):
         errorsLst = []
         email = self.emailEnt.get().lower()
