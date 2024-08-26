@@ -7,6 +7,7 @@ from customtkinter import *
 import customtkinter
 from PIL import Image, ImageTk
 import os
+import re
 
 # Set appearance mode for the entire application
 set_appearance_mode("dark")
@@ -156,15 +157,16 @@ class Signup(CTkFrame):
     #Output: the errors in a list(inside a messagebox) then writes to a csv and changes the frame (to BookingPage frame)(data type is a string with integers)
     def booking(self, event=None):
         errorsLst = []
+        pat = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
         email = self.emailEnt.get().lower()
         if not self.nameEnt.get().isalpha() or self.nameEnt.get() == '':
             errorsLst.append('Please Input a Name with alphabetic characters only')
             self.nameEnt.configure(border_color="red")
-        if '@' not in email or '.com' not in email or email == '':
+        if not re.match(pat, email) or email == '':
             errorsLst.append('Please input a valid email')
             self.emailEnt.configure(border_color="red")
         if self.passwordEnt.get() == '':
-            errorsLst.append('Please input a password')
+            errorsLst.append('Please a input password')
             self.passwordEnt.configure(border_color="red")
         if self.passwordConfirmEnt.get() != self.passwordEnt.get() or self.passwordConfirmEnt.get() == '':
             errorsLst.append('Passwords do not match')
@@ -272,11 +274,12 @@ class Loginpage(CTkFrame):#To input the user's unique information to access thei
     #Input: emailEnt, passwordEnt
     #Process: Has validation for the entries (if there are anything wrong it displays a messagebox with the errors) and then reads
     # from the BookingWebsiteDetail.csv and changes the current frame to the BookingPage frame.
-    #Output: the errors in a list(inside a messagebox) then reads from a csv and changes the frame (to BookingPage)(data type is a string with integers)
+    #Output: the errors in a list(inside a messagebox) then reads from a csv and changes the frame (to BookingPage) (data type is a string with integers)
     def booking(self, event=None):
         errorsLst = []
+        pat = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
         email = self.emailEnt.get().lower()
-        if '@' not in email or '.com' not in email or email == '':
+        if not re.match(pat, email) or email == '':
             errorsLst.append('Please input a valid email')
             self.emailEnt.configure(border_color = "red")
         if self.passwordEnt.get() == '':
@@ -499,7 +502,7 @@ class Bookingpage(CTkFrame):#the booking page to select what flight options the 
     def back(self):
         self.master.change(Loginpage)
 
-    ''' Dihein '''
+    ''' Dihein ''' 
     #Input: self.tv
     #Process: It takes what the user selected/clicked in the treeview and displays the airline, to, from and price in a detailWindow which also containts a Book button
     # when pressed displays a messagebox confirming their flight details.
